@@ -3,7 +3,7 @@ package guru.qa.countrycatalog.controller;
 import guru.qa.countrycatalog.domain.Country;
 import guru.qa.countrycatalog.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +32,7 @@ public class CountryController {
     }
 
     @GetMapping
-    public Country byCode(@RequestParam String code) {
+    public Country getByCode(@RequestParam String code) {
         return countryService.countryByCode(code);
     }
 
@@ -44,5 +44,10 @@ public class CountryController {
     @PatchMapping("/update/{code}")
     public Country update(@PathVariable String code, @RequestBody Country country) {
         return countryService.updateCountryByCode(code, country);
+    }
+
+    @DeleteMapping("/delete/{code}")
+    public void delete(@PathVariable String code) {
+        countryService.deleteCountryByCode(code);
     }
 }

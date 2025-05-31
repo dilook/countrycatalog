@@ -34,7 +34,12 @@ public class DbCountryService implements CountryService {
     @Override
     @Nullable
     public Country countryByCode(@Nonnull String code) {
-        return countryRepository.findByCode(code);
+        final Country found = countryRepository.findByCode(code);
+        if(found != null) {
+            return found;
+        } else {
+            throw new CountryNotFoundException("Country with code '" + code + "' not found");
+        }
     }
 
     @Transactional
