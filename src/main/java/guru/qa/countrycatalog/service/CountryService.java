@@ -3,7 +3,6 @@ package guru.qa.countrycatalog.service;
 import guru.qa.countrycatalog.domain.Country;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface CountryService {
 
