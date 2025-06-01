@@ -1,0 +1,10 @@
+INSERT INTO country (id, name, code) VALUES ('0494a84d-e0e1-476d-8ea1-22b634da8aaa','Fiji', 'FJ');
+INSERT INTO country (id, name, code) VALUES ('55fb4581-96eb-46ea-af36-1d45c52087bf','Tanzania', 'TZ');
+INSERT INTO country (id, name, code) VALUES ('2fe25c51-7851-4cd3-b24e-b9c576b1b8af','Western Sahara', 'EH');
+INSERT INTO country (id, name, code) VALUES ('87f8e1b1-1a78-47f9-ae70-bacd30a8b7c4','Canada', 'CA');
+INSERT INTO country (id, name, code) VALUES ('bad60111-ff80-4da2-b151-f2c8b89e04f7','United States', 'US');
+INSERT INTO country (id, name, code) VALUES ('d75b6272-66c4-43ab-b959-7d7d67eadc5c','Kazakhstan', 'KZ');
+INSERT INTO country (id, name, code) VALUES ('398b97ca-2e82-4ddf-b6c0-a3cd3d9a6b1a','Uzbekistan', 'UZ');
+INSERT INTO country (id, name, code) VALUES ('60d6ca67-a21a-4752-a357-4043f9ddd401','Papua New Guinea', 'PG');
+INSERT INTO country (id, name, code) VALUES ('13986443-41fa-4d97-88aa-0ccff7dc1cf8','Indonesia', 'ID');
+INSERT INTO country (id, name, code) VALUES ('24833238-d92a-488e-9fd7-9500f2b93135','Argentina', 'AR');
