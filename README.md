@@ -62,7 +62,7 @@ cd countrycatalog
 ### Получение всех стран
 
 ```
-GET /api/countryJson/all
+GET /api/country/all
 ```
 
 Возвращает список всех стран в формате JSON.
@@ -70,7 +70,7 @@ GET /api/countryJson/all
 ### Получение страны по коду
 
 ```
-GET /api/countryJson?code={code}
+GET /api/country?code={code}
 ```
 
 Параметры:
@@ -81,7 +81,7 @@ GET /api/countryJson?code={code}
 ### Создание новой страны
 
 ```
-POST /api/countryJson/create
+POST /api/country/create
 ```
 
 Тело запроса (JSON):
@@ -97,7 +97,7 @@ POST /api/countryJson/create
 ### Обновление страны
 
 ```
-PATCH /api/countryJson/update/{code}
+PATCH /api/country/update/{code}
 ```
 
 Параметры пути:
@@ -116,7 +116,7 @@ PATCH /api/countryJson/update/{code}
 ### Удаление страны
 
 ```
-DELETE /api/countryJson/delete/{code}
+DELETE /api/country/delete/{code}
 ```
 
 Параметры пути:
@@ -126,7 +126,7 @@ DELETE /api/countryJson/delete/{code}
 
 ## Структура базы данных
 
-База данных содержит одну таблицу `countryJson` со следующей структурой:
+База данных содержит одну таблицу `country` со следующей структурой:
 
 | Поле | Тип | Описание |
 |------|-----|----------|
@@ -153,7 +153,7 @@ src/
 │       ├── application.yaml              # Конфигурация приложения
 │       └── db/
 │           └── migration/
-│               └── countryJson/
+│               └── country/
 │                   └── V1__schema_init.sql  # Миграция для инициализации схемы
 └── test/
     └── java/
@@ -173,4 +173,4 @@ src/
 
 ## Миграции базы данных
 
-Приложение использует Flyway для управления миграциями базы данных. При первом запуске приложения автоматически создается таблица `countryJson` и заполняется начальными данными (175 стран).
+Приложение использует Flyway для управления миграциями базы данных. При первом запуске приложения автоматически создается таблица `country` и заполняется начальными данными (175 стран).
