@@ -2,7 +2,7 @@ package guru.qa.countrycatalog.service;
 
 import guru.qa.countrycatalog.data.CountryEntity;
 import guru.qa.countrycatalog.data.CountryRepository;
-import guru.qa.countrycatalog.domain.Country;
+import guru.qa.countrycatalog.domain.CountryJson;
 import guru.qa.countrycatalog.exception.CountryNotFoundException;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -24,17 +24,17 @@ public class DbCountryService implements CountryService {
 
     @Override
     @Nonnull
-    public List<Country> allCountries() {
+    public List<CountryJson> allCountries() {
         return countryRepository.findAll()
                 .stream()
-                .map(countryEntity -> new Country(countryEntity.getName(), countryEntity.getCode()))
+                .map(countryEntity -> new CountryJson(countryEntity.getName(), countryEntity.getCode()))
                 .toList();
     }
 
     @Override
     @Nullable
-    public Country countryByCode(@Nonnull String code) {
-        final Country found = countryRepository.findByCode(code);
+    public CountryJson countryByCode(@Nonnull String code) {
+        final CountryJson found = countryRepository.findByCode(code);
         if(found != null) {
             return found;
         } else {
@@ -44,20 +44,20 @@ public class DbCountryService implements CountryService {
 
     @Transactional
     @Override
-    public @Nonnull Country createCountry(@Nonnull Country country) {
-        return Country.fromEntity(
-                countryRepository.save(CountryEntity.fromCountry(country))
+    public @Nonnull CountryJson createCountry(@Nonnull CountryJson countryJson) {
+        return CountryJson.fromEntity(
+                countryRepository.save(CountryEntity.fromCountry(countryJson))
         );
     }
 
     @Transactional
     @Override
-    public @Nonnull Country updateCountryByCode(String code, Country country) {
+    public @Nonnull CountryJson updateCountryByCode(String code, CountryJson countryJson) {
         final CountryEntity foundCountry = countryRepository.findCountryEntityByCode(code);
         if (foundCountry != null) {
-            final CountryEntity countryEntity = CountryEntity.fromCountry(country);
+            final CountryEntity countryEntity = CountryEntity.fromCountry(countryJson);
             countryEntity.setId(foundCountry.getId());
-            return Country.fromEntity(
+            return CountryJson.fromEntity(
                     countryRepository.save(countryEntity)
             );
         }

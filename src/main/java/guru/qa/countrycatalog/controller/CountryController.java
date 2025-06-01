@@ -1,8 +1,9 @@
 package guru.qa.countrycatalog.controller;
 
-import guru.qa.countrycatalog.domain.Country;
+import guru.qa.countrycatalog.domain.CountryJson;
 import guru.qa.countrycatalog.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -27,23 +29,24 @@ public class CountryController {
     }
 
     @GetMapping("/all")
-    public List<Country> all() {
+    public List<CountryJson> all() {
         return countryService.allCountries();
     }
 
     @GetMapping
-    public Country getByCode(@RequestParam String code) {
+    public CountryJson getByCode(@RequestParam String code) {
         return countryService.countryByCode(code);
     }
 
     @PostMapping("/create")
-    public Country create(@RequestBody Country country) {
-        return countryService.createCountry(country);
+    @ResponseStatus(HttpStatus.CREATED)
+    public CountryJson create(@RequestBody CountryJson countryJson) {
+        return countryService.createCountry(countryJson);
     }
 
     @PatchMapping("/update/{code}")
-    public Country update(@PathVariable String code, @RequestBody Country country) {
-        return countryService.updateCountryByCode(code, country);
+    public CountryJson update(@PathVariable String code, @RequestBody CountryJson countryJson) {
+        return countryService.updateCountryByCode(code, countryJson);
     }
 
     @DeleteMapping("/delete/{code}")

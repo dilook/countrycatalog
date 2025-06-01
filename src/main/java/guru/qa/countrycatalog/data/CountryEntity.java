@@ -1,6 +1,6 @@
 package guru.qa.countrycatalog.data;
 
-import guru.qa.countrycatalog.domain.Country;
+import guru.qa.countrycatalog.domain.CountryJson;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -52,10 +52,10 @@ public class CountryEntity {
         this.code = code;
     }
 
-    public static CountryEntity fromCountry(Country country) {
+    public static CountryEntity fromCountry(CountryJson countryJson) {
         final CountryEntity countryEntity = new CountryEntity();
-        countryEntity.setCode(country.code());
-        countryEntity.setName(country.name());
+        countryEntity.setCode(countryJson.code());
+        countryEntity.setName(countryJson.name());
         return countryEntity;
     }
 
