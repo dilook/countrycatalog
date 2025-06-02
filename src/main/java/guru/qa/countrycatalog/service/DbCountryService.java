@@ -67,6 +67,6 @@ public class DbCountryService implements CountryService {
     @Transactional
     @Override
     public void deleteCountryByCode(@Nonnull String code) {
-        countryRepository.removeCountryEntityByCode(code);
+        countryRepository.removeByCode(code);
     }
 }
