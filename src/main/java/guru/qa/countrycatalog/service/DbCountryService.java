@@ -34,11 +34,11 @@ public class DbCountryService implements CountryService {
     @Override
     @Nullable
     public CountryJson countryByCode(@Nonnull String code) {
-        final CountryJson found = countryRepository.findByCode(code);
+        final CountryEntity found = countryRepository.findByCode(code);
         if(found != null) {
-            return found;
+            return CountryJson.fromEntity(found);
         } else {
-            throw new CountryNotFoundException("Country with code '" + code + "' not found");
+            throw new CountryNotFoundException(code);
         }
     }
 
@@ -53,7 +53,7 @@ public class DbCountryService implements CountryService {
     @Transactional
     @Override
     public @Nonnull CountryJson updateCountryByCode(String code, CountryJson countryJson) {
-        final CountryEntity foundCountry = countryRepository.findCountryEntityByCode(code);
+        final CountryEntity foundCountry = countryRepository.findByCode(code);
         if (foundCountry != null) {
             final CountryEntity countryEntity = CountryEntity.fromCountry(countryJson);
             countryEntity.setId(foundCountry.getId());
@@ -61,7 +61,7 @@ public class DbCountryService implements CountryService {
                     countryRepository.save(countryEntity)
             );
         }
-        throw new CountryNotFoundException("Country not found");
+        throw new CountryNotFoundException(code);
     }
 
     @Transactional
