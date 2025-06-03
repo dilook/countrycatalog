@@ -5,8 +5,8 @@ type Query {
 
 type Mutation {
     addCountry(input: CountryInput!): Country
-    updateCountry(code: String, input: CountryInput!): Country
-    delete(code: String):
+    updateCountry(code: String!, input: CountryInput!): Country
+    deleteCountry(code: String): DeleteResponse!
 }
 
 input CountryInput {
@@ -18,4 +18,8 @@ type Country {
     id: ID!
     name: String!
     code: String!
+}
+
+type DeleteResponse {
+    success: Boolean!
 }

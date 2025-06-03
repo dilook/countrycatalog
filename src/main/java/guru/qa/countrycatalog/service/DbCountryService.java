@@ -96,6 +96,21 @@ public class DbCountryService implements CountryService {
     }
 
     @Transactional
+    @Nonnull
+    @Override
+    public CountryGql updateCountryGqlByCode(String code, CountryInputGql country) {
+        final CountryEntity foundCountry = countryRepository.findByCode(code);
+        if (foundCountry != null) {
+            final CountryEntity countryEntity = CountryEntity.fromCountryInputGql(country);
+            countryEntity.setId(foundCountry.getId());
+            return CountryGql.fromEntity(
+                    countryRepository.save(countryEntity)
+            );
+        }
+        throw new CountryNotFoundException(code);
+    }
+
+    @Transactional
     @Override
     public void deleteCountryByCode(@Nonnull String code) {
         countryRepository.removeByCode(code);

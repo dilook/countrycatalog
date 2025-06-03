@@ -28,5 +28,8 @@ public interface CountryService {
 
     CountryJson updateCountryByCode(String code, CountryJson countryJson);
 
+    @Transactional
+    @Nonnull CountryGql updateCountryGqlByCode(String code, CountryInputGql country);
+
     void deleteCountryByCode(String code);
 }

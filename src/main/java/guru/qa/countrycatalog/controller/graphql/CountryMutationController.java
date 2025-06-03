@@ -2,16 +2,11 @@ package guru.qa.countrycatalog.controller.graphql;
 
 import guru.qa.countrycatalog.domain.CountryGql;
 import guru.qa.countrycatalog.domain.CountryInputGql;
-import guru.qa.countrycatalog.domain.CountryJson;
 import guru.qa.countrycatalog.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller()
 public class CountryMutationController {
@@ -28,13 +23,13 @@ public class CountryMutationController {
         return countryService.createGqlCountry(input);
     }
 
-    @PatchMapping("/update/{code}")
-    public CountryGql update(@PathVariable String code, @RequestBody CountryJson countryJson) {
-        return countryService.updateCountryByCode(code, countryJson);
+    @MutationMapping
+    public CountryGql updateCountry(@Argument String code, @Argument CountryInputGql input) {
+        return countryService.updateCountryGqlByCode(code, input);
     }
 
     @MutationMapping
-    public void delete(@Argument String code) {
+    public void deleteCountry(@Argument String code) {
         countryService.deleteCountryByCode(code);
     }
 }
