@@ -2,6 +2,8 @@ package guru.qa.countrycatalog.service;
 
 import guru.qa.countrycatalog.data.CountryEntity;
 import guru.qa.countrycatalog.data.CountryRepository;
+import guru.qa.countrycatalog.domain.CountryGql;
+import guru.qa.countrycatalog.domain.CountryInputGql;
 import guru.qa.countrycatalog.domain.CountryJson;
 import guru.qa.countrycatalog.exception.CountryNotFoundException;
 import jakarta.annotation.Nonnull;
@@ -27,7 +29,16 @@ public class DbCountryService implements CountryService {
     public List<CountryJson> allCountries() {
         return countryRepository.findAll()
                 .stream()
-                .map(countryEntity -> new CountryJson(countryEntity.getName(), countryEntity.getCode()))
+                .map(CountryJson::fromEntity)
+                .toList();
+    }
+
+    @Nonnull
+    @Override
+    public List<CountryGql> allGqlCountries() {
+        return countryRepository.findAll()
+                .stream()
+                .map(CountryGql::fromEntity)
                 .toList();
     }
 
@@ -35,8 +46,19 @@ public class DbCountryService implements CountryService {
     @Nullable
     public CountryJson countryByCode(@Nonnull String code) {
         final CountryEntity found = countryRepository.findByCode(code);
-        if(found != null) {
+        if (found != null) {
             return CountryJson.fromEntity(found);
+        } else {
+            throw new CountryNotFoundException(code);
+        }
+    }
+
+    @Nullable
+    @Override
+    public CountryGql countryGqlByCode(@Nonnull String code) {
+        final CountryEntity found = countryRepository.findByCode(code);
+        if (found != null) {
+            return CountryGql.fromEntity(found);
         } else {
             throw new CountryNotFoundException(code);
         }
@@ -47,6 +69,15 @@ public class DbCountryService implements CountryService {
     public @Nonnull CountryJson createCountry(@Nonnull CountryJson countryJson) {
         return CountryJson.fromEntity(
                 countryRepository.save(CountryEntity.fromCountry(countryJson))
+        );
+    }
+
+    @Transactional
+    @Nonnull
+    @Override
+    public CountryGql createGqlCountry(@Nonnull CountryInputGql country) {
+        return CountryGql.fromEntity(
+                countryRepository.save(CountryEntity.fromCountryInputGql(country))
         );
     }
 
