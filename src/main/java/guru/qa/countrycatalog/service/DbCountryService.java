@@ -5,6 +5,7 @@ import guru.qa.countrycatalog.data.CountryRepository;
 import guru.qa.countrycatalog.domain.CountryGql;
 import guru.qa.countrycatalog.domain.CountryInputGql;
 import guru.qa.countrycatalog.domain.CountryJson;
+import guru.qa.countrycatalog.domain.DeleteResponseGql;
 import guru.qa.countrycatalog.exception.CountryNotFoundException;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -114,5 +115,11 @@ public class DbCountryService implements CountryService {
     @Override
     public void deleteCountryByCode(@Nonnull String code) {
         countryRepository.removeByCode(code);
+    }
+
+    @Transactional
+    @Override
+    public DeleteResponseGql deleteCountryGqlByCode(@Nonnull String code) {
+        return new DeleteResponseGql(countryRepository.removeByCode(code) > 0);
     }
 }
