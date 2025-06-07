@@ -1,5 +1,6 @@
 package guru.qa.countrycatalog.data;
 
+import guru.qa.countrycatalog.domain.CountryInputGql;
 import guru.qa.countrycatalog.domain.CountryJson;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -56,6 +57,13 @@ public class CountryEntity {
         final CountryEntity countryEntity = new CountryEntity();
         countryEntity.setCode(countryJson.code());
         countryEntity.setName(countryJson.name());
+        return countryEntity;
+    }
+
+    public static CountryEntity fromCountryInputGql(CountryInputGql country) {
+        final CountryEntity countryEntity = new CountryEntity();
+        countryEntity.setCode(country.code());
+        countryEntity.setName(country.name());
         return countryEntity;
     }
 

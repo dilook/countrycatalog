@@ -6,7 +6,16 @@ import java.util.UUID;
 
 public interface CountryRepository extends JpaRepository<CountryEntity, UUID> {
 
-    void removeByCode(String code);
+    long removeByCode(String code);
 
     CountryEntity findByCode(String code);
+//
+//    default boolean removeByCode(String code) {
+//        if (findByCode(code) != null) {
+//            removeByCode(code);
+//            return true;
+//        }
+//        return false;
+//    }
+
 }
