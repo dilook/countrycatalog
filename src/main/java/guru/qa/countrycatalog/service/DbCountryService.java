@@ -78,7 +78,7 @@ public class DbCountryService implements CountryService {
     @Override
     public CountryGql createGqlCountry(@Nonnull CountryInputGql country) {
         return CountryGql.fromEntity(
-                countryRepository.save(CountryEntity.fromCountryInputGql(country))
+                countryRepository.save(CountryEntity.instance(country))
         );
     }
 
@@ -102,7 +102,7 @@ public class DbCountryService implements CountryService {
     public CountryGql updateCountryGqlByCode(String code, CountryInputGql country) {
         final CountryEntity foundCountry = countryRepository.findByCode(code);
         if (foundCountry != null) {
-            final CountryEntity countryEntity = CountryEntity.fromCountryInputGql(country);
+            final CountryEntity countryEntity = CountryEntity.instance(country);
             countryEntity.setId(foundCountry.getId());
             return CountryGql.fromEntity(
                     countryRepository.save(countryEntity)

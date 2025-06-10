@@ -60,7 +60,7 @@ public class CountryEntity {
         return countryEntity;
     }
 
-    public static CountryEntity fromCountryInputGql(CountryInputGql country) {
+    public static CountryEntity instance(CountryInputGql country) {
         final CountryEntity countryEntity = new CountryEntity();
         countryEntity.setCode(country.code());
         countryEntity.setName(country.name());
