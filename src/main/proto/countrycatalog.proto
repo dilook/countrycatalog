@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+
+import "google/protobuf/empty.proto";
+
+package guru.qa.grpc.countrycatalog;
+
+option java_multiple_files = true;
+option java_package = " guru.qa.grpc.countrycatalog";
+option java_outer_classname = "CountrycatalogProto";
+
+service CountrycatalogService {
+  rpc Country(CodeRequest) returns (CountryResponse) {}
+}
+
+message CodeRequest {
+  string code = 1;
+
+}
+
+message CountryResponse {
+  string id = 1;
+  string name = 2;
+  string code = 3;
+}
