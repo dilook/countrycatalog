@@ -11,6 +11,10 @@ option java_outer_classname = "CountrycatalogProto";
 
 service CountrycatalogService {
   rpc Country(CodeRequest) returns (CountryResponse) {}
+  rpc AllCountries(google.protobuf.Empty) returns (AllCountriesResponse) {}
+  rpc AddCountry(CountryRequest) returns (CountryResponse) {}
+  rpc UpdateCountry(CountryRequestWithCode) returns (CountryResponse) {}
+  rpc DeleteCountry(CodeRequest) returns (google.protobuf.Empty) {}
 }
 
 message CodeRequest {
@@ -20,6 +24,21 @@ message CodeRequest {
 
 message CountryResponse {
   string id = 1;
+  string name = 2;
+  string code = 3;
+}
+
+message AllCountriesResponse {
+  repeated CountryResponse all_countries = 1;
+}
+
+message CountryRequest {
+  string name = 1;
+  string code = 2;
+}
+
+message CountryRequestWithCode {
+  string current_code = 1;
   string name = 2;
   string code = 3;
 }
