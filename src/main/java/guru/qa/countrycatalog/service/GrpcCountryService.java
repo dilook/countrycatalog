@@ -5,6 +5,7 @@ import guru.qa.countrycatalog.domain.CountryGql;
 import guru.qa.countrycatalog.domain.CountryInputGql;
 import guru.qa.grpc.countrycatalog.AllCountriesResponse;
 import guru.qa.grpc.countrycatalog.CodeRequest;
+import guru.qa.grpc.countrycatalog.CountryCount;
 import guru.qa.grpc.countrycatalog.CountryRequest;
 import guru.qa.grpc.countrycatalog.CountryRequestWithCode;
 import guru.qa.grpc.countrycatalog.CountryResponse;
@@ -13,6 +14,7 @@ import io.grpc.stub.StreamObserver;
 import org.springframework.grpc.server.service.GrpcService;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @GrpcService
 public class GrpcCountryService extends CountrycatalogServiceGrpc.CountrycatalogServiceImplBase {
@@ -65,6 +67,30 @@ public class GrpcCountryService extends CountrycatalogServiceGrpc.Countrycatalog
                         .build()
         );
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public StreamObserver<CountryRequest> addCountryStream(StreamObserver<CountryCount> responseObserver) {
+        return new StreamObserver<>() {
+            private final AtomicInteger count = new AtomicInteger(0);
+
+            @Override
+            public void onNext(CountryRequest request) {
+                countryService.createGqlCountry(new CountryInputGql(request.getName(), request.getCode()));
+                count.getAndIncrement();
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                responseObserver.onError(t);
+            }
+
+            @Override
+            public void onCompleted() {
+                responseObserver.onNext(CountryCount.newBuilder().setCount(count.get()).build());
+                responseObserver.onCompleted();
+            }
+        };
     }
 
     @Override
