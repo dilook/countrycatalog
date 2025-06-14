@@ -1,4 +1,4 @@
-package guru.qa.countrycatalog.controller.grpc;
+package guru.qa.countrycatalog.service.grpc;
 
 import com.google.protobuf.Empty;
 import guru.qa.grpc.countrycatalog.AllCountriesResponse;
