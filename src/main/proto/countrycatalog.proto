@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+
+import "google/protobuf/empty.proto";
+
+package guru.qa.grpc.countrycatalog;
+
+option java_multiple_files = true;
+option java_package = "guru.qa.grpc.countrycatalog";
+option java_outer_classname = "CountrycatalogProto";
+
+service CountrycatalogService {
+  rpc Country(CodeRequest) returns (CountryResponse) {}
+  rpc AllCountries(google.protobuf.Empty) returns (AllCountriesResponse) {}
+  rpc AddCountry(CountryRequest) returns (CountryResponse) {}
+  rpc AddCountryStream(stream CountryRequest) returns (CountryCount) {}
+  rpc UpdateCountry(CountryRequestWithCode) returns (CountryResponse) {}
+  rpc DeleteCountry(CodeRequest) returns (google.protobuf.Empty) {}
+}
+
+message CodeRequest {
+  string code = 1;
+
+}
+
+message CountryResponse {
+  string id = 1;
+  string name = 2;
+  string code = 3;
+}
+
+message AllCountriesResponse {
+  repeated CountryResponse all_countries = 1;
+}
+
+message CountryRequest {
+  string name = 1;
+  string code = 2;
+}
+
+message CountryRequestWithCode {
+  string current_code = 1;
+  string name = 2;
+  string code = 3;
+}
+
+message CountryCount {
+  int32 count = 1;
+}

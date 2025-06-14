@@ -54,7 +54,7 @@ public class DbCountryService implements CountryService {
         }
     }
 
-    @Nullable
+    @Nonnull
     @Override
     public CountryGql countryGqlByCode(@Nonnull String code) {
         final CountryEntity found = countryRepository.findByCode(code);

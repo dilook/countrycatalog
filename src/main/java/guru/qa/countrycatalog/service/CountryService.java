@@ -5,7 +5,6 @@ import guru.qa.countrycatalog.domain.CountryInputGql;
 import guru.qa.countrycatalog.domain.CountryJson;
 import guru.qa.countrycatalog.domain.DeleteResponseGql;
 import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -19,7 +18,7 @@ public interface CountryService {
 
     CountryJson countryByCode(String code);
 
-    @Nullable
+    @Nonnull
     CountryGql countryGqlByCode(@Nonnull String code);
 
     CountryJson createCountry(CountryJson countryJson);

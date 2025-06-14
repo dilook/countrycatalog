@@ -1,7 +1,10 @@
 server:
-  port: 9090
+  port: 8080
 
 spring:
+  grpc:
+    server:
+      port: 9090
   application:
     name: countrycatalog
   datasource:
